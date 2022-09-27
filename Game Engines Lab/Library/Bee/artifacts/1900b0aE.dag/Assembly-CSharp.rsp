@@ -359,6 +359,7 @@
 "Assets/_Scripts/Enemy.cs"
 "Assets/_Scripts/PlayerAction.cs"
 "Assets/_Scripts/PlayerController.cs"
+"Assets/_Scripts/PlayerInputController.cs"
 "Assets/_Scripts/ScoreManager.cs"
 -langversion:9.0
 

@@ -21,8 +21,9 @@ public class PlayerController : MonoBehaviour
 
     //Player jump
     Rigidbody rb;
-    private float distanceToGround;
-    private bool isGrounded = true;
+    public float distanceToGround;
+    public bool isGrounded = true;
+    private bool doGroundCheck;
     public float jump = 5f;
 
     //Player animation
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
 
-        distanceToGround = GetComponent<Collider>().bounds.extents.y;
+        distanceToGround = (GetComponent<Collider>().bounds.extents.y);
     }
 
     public void Jump()
@@ -71,7 +72,7 @@ public class PlayerController : MonoBehaviour
             UnityEngine.Debug.Log("Jump was called.");
             //rb.velocity = new Vector3(rb.velocity.x, jump, rb.velocity.z);
             rb.AddForce(new Vector3(0f, 10f, 0f), ForceMode.Impulse);
-            isGrounded = false;
+            //StartCoroutine(DelayGroundCheck());
         }
     }
 
@@ -85,13 +86,35 @@ public class PlayerController : MonoBehaviour
             ScoreManager.instance.DecreaseScore();
         }
     }
-
+    /*
+    private IEnumerator DelayGroundCheck()
+    {
+        doGroundCheck = false;
+        yield return new WaitForSeconds(1);
+        doGroundCheck = true;
+    }
+    */
     // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector3.forward * move.y * Time.deltaTime * walkSpeed, Space.Self);
         transform.Translate(Vector3.right * move.x * Time.deltaTime * walkSpeed, Space.Self);
 
-        isGrounded = Physics.Raycast(transform.position, -Vector3.up, distanceToGround);
+        isGrounded = Physics.Raycast(rb.position, -Vector3.up, distanceToGround);
+
+        playerAnimator.SetBool("isGrounded", isGrounded);
+        if (move.x != 0 || move.y != 0)
+        {
+            playerAnimator.SetBool("isMoving", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isMoving", false);
+        }
     }
+
+   // void OnDrawGizmos()
+    //{
+        //Gizmos.DrawLine(transform.position, transform.position - Vector3.up * distanceToGround);
+    //}
 }
