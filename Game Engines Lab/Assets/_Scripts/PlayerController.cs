@@ -77,9 +77,13 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot()
     {
-        Rigidbody bulletRb = Instantiate(bullet, projectilePos.position, Quaternion.identity).GetComponent<Rigidbody>();
-        bulletRb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-        bulletRb.AddForce(transform.up * 5f, ForceMode.Impulse);
+        if (ScoreManager.instance.score > 0)
+        {
+            Rigidbody bulletRb = Instantiate(bullet, projectilePos.position, Quaternion.identity).GetComponent<Rigidbody>();
+            bulletRb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            bulletRb.AddForce(transform.up * 1f, ForceMode.Impulse);
+            ScoreManager.instance.DecreaseScore();
+        }
     }
 
     // Update is called once per frame

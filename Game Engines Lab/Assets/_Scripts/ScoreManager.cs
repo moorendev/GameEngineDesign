@@ -23,9 +23,15 @@ public class ScoreManager : MonoBehaviour
         
     }
 
-    public void ChangeScore(int coinValue)
+    public void ChangeScore(int boxValue)
     {
-        score += coinValue;
+        score += boxValue;
+        UnityEngine.Debug.Log(score);
+    }
+
+    public void DecreaseScore()
+    {
+        score -= 1;
         UnityEngine.Debug.Log(score);
     }
 }

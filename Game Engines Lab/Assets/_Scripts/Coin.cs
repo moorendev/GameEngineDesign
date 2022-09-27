@@ -8,7 +8,7 @@ public class Coin : MonoBehaviour
     {
         if(other.collider.tag == "Player")
         {
-            ScoreManager.instance.ChangeScore(1);
+            ScoreManager.instance.ChangeScore(5);
             Destroy(gameObject);
         }
     }
