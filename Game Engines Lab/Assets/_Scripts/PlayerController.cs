@@ -23,12 +23,10 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     public float distanceToGround;
     public bool isGrounded = true;
-    private bool doGroundCheck;
     public float jump = 5f;
 
     //Player animation
     Animator playerAnimator;
-    // private bool isWalking = false;
 
     //Projectile bullets
     public GameObject bullet;
@@ -72,7 +70,6 @@ public class PlayerController : MonoBehaviour
             UnityEngine.Debug.Log("Jump was called.");
             //rb.velocity = new Vector3(rb.velocity.x, jump, rb.velocity.z);
             rb.AddForce(new Vector3(0f, 10f, 0f), ForceMode.Impulse);
-            //StartCoroutine(DelayGroundCheck());
         }
     }
 
@@ -86,14 +83,7 @@ public class PlayerController : MonoBehaviour
             ScoreManager.instance.DecreaseScore();
         }
     }
-    /*
-    private IEnumerator DelayGroundCheck()
-    {
-        doGroundCheck = false;
-        yield return new WaitForSeconds(1);
-        doGroundCheck = true;
-    }
-    */
+
     // Update is called once per frame
     void Update()
     {
@@ -112,9 +102,4 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetBool("isMoving", false);
         }
     }
-
-   // void OnDrawGizmos()
-    //{
-        //Gizmos.DrawLine(transform.position, transform.position - Vector3.up * distanceToGround);
-    //}
 }
